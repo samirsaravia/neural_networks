@@ -87,3 +87,51 @@ activation2.forward(dense2.output)
 
 # Let's see output of the first few samples:
 print(activation2.output[:5])
+
+print("--" * 30)
+# An example output from the output layer of the neural network
+softmax_output = [0.7, 0.1, 0.2]
+# Ground truth
+target_output = [1, 0, 0]
+loss = -(math.log(softmax_output[0]) * target_output[0] +
+         math.log(softmax_output[1]) * target_output[1] +
+         math.log(softmax_output[2]) * target_output[2])
+print(loss)
+print(-math.log(softmax_output[0]))
+print(math.log(1.))
+print(math.log(0.95))
+# =================using euler's log=================
+print("Euler's log")
+b = 5.2
+print(np.log(b))
+print(math.e ** np.log(b))
+
+softmax_outputs2 = [[0.7, 0.1, 0.2],
+                    [0.1, 0.5, 0.4],
+                    [0.02, 0.9, 0.08]]
+class_targets = [0, 1, 1]
+for targ_idx, distributions in zip(class_targets, softmax_outputs2):
+    print((distributions[targ_idx]))
+soft_output = np.array([[0.7, 0.1, 0.2],
+                        [0.1, 0.5, 0.4],
+                        [0.02, 0.9, 0.08]])
+neg_log = -np.log(soft_output[range(len(soft_output)), class_targets])
+average_loss = np.mean(neg_log)
+print(f"average loss: {average_loss}")  # mean = sum(iterable) / len (iterable)
+class_targets2 = np.array([[1, 0, 0],
+                           [0, 1, 0],
+                           [0, 1, 0]])
+print(f"length : {len(class_targets2.shape)}")
+# Probabilities for target values only if categorical labels
+if len(class_targets2.shape) == 1:
+    correct_confidences = soft_output[range(len(soft_output)), class_targets2]
+# mask values only for one-hot encoded labels
+elif len(class_targets2.shape) == 2:
+    correct_confidences = np.sum(soft_output * class_targets2, axis=1)
+print(correct_confidences)
+# print(-np.log(0))
+# losses
+neg_log = -np.log(correct_confidences)
+avg_loss = np.mean(neg_log)
+print(f"average loss: {avg_loss}")
+print(-np.log(1e-7))
