@@ -43,3 +43,13 @@ print(activation2.output[:5])
 loss = loss_function.calculate(activation2.output, y)
 print(f"Loss: {loss}")
 print(f"length of y: {len(y)}\nhow is like y: {y}")
+
+# Calculate accuracy from output of activation2 and targets
+# calculate values along first axis
+predictions = np.argmax(activation2.output, axis=1)
+print(f"Predictions: {predictions}")
+print(f"Length of y: {len(y.shape)}")
+if len(y.shape) == 2:
+    y = np.argmax(y, axis=1)
+accuracy = np.mean(predictions == y)
+print(f"Accuracy: {accuracy}")
